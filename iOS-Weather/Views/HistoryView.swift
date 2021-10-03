@@ -8,8 +8,31 @@
 import SwiftUI
 
 struct HistoryView: View {
+    
+    @ObservedObject var weather: WeatherViewModel = WeatherViewModel()
+    
+    @State private var temperature: Double = 0.0
+    
+    @State private var condition: String = ""
+    
+    @State private var conditionImage: String = ""
+    
+    @State private var feel: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        List(weather.predictions.reversed()) { prediction in
+            VStack(alignment: .leading) {
+                Text("\(String(format: "%.1f", arguments: [prediction.temperature]))°C.")
+                HStack {
+                    Text(prediction.condition.description)
+                    Image(prediction.condition.systemImage)
+                }
+                Text(prediction.feel)
+            }
+            .padding()
+            .navigationTitle("Prediction History")
+        }
     }
 }
 
