@@ -15,8 +15,21 @@ struct iOS_WeatherApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView(weather: weather)
+            TabView {
+                NavigationView {
+                    ContentView(weather: weather)
+                }
+                .tabItem {
+                    Image(systemName: "cloud.sun.fill")
+                    Text("Weather Prediction")
+                }
+                NavigationView {
+                    HistoryView(weather: weather)
+                }
+                .tabItem {
+                    Image(systemName: "clock.arrow.2.circlepath")
+                    Text("History")
+                }
             }
         }
     }
